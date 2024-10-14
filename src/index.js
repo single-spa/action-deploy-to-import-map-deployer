@@ -29,15 +29,18 @@ if (serviceName) {
     requestBody.integrity = getInput("service-integrity");
   }
 
+  const credentials = `${getInput("username")}:${getInput("password")}`;
+  const requestHeaders = {
+    "content-type": "application/json",
+    Authorization: `Basic ${btoa(credentials)}`,
+  };
+
   const r = await fetch(
     `${getInput("host")}/services?env=${encodeURIComponent(getInput("environment-name"))}${packageDirQuery}`,
     {
       method: "PATCH",
       body: JSON.stringify(requestBody),
-      headers: {
-        "content-type": "application/json",
-        authorization: `Basic ${getInput("username")}:${getInput("password")}`,
-      },
+      headers: requestHeaders,
     },
   );
 
@@ -47,7 +50,7 @@ if (serviceName) {
       await r.json(),
     );
   } else {
-    console.log("response body", await r.text());
+    console.log(`response body: '${await r.text()}'`);
     setFailed(
       `PATCH request to import-map-deployer services endpoint failed with HTTP status '${r.status} ${r.statusText}'`,
     );
@@ -60,10 +63,7 @@ if (importMapPath) {
     {
       method: "PATCH",
       body: JSON.stringify(importMap),
-      headers: {
-        "content-type": "application/json",
-        authorization: `Basic ${getInput("username")}:${getInput("password")}`,
-      },
+      headers: requestHeaders,
     },
   );
 
@@ -73,7 +73,7 @@ if (importMapPath) {
       await r.json(),
     );
   } else {
-    console.log("response body", await r.text());
+    console.log(`response body: '${await r.text()}'`);
     setFailed(
       `PATCH request to import-map-deployer import map endpoint failed with HTTP status '${r.status} ${r.statusText}'`,
     );
