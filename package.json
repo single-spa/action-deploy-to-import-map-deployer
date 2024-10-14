@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "build": "ncc build index.js --license LICENSE",
+    "build": "ncc build src/index.js --license LICENSE",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
     "prepare": "husky"
