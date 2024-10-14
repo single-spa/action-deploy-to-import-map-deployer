@@ -1,0 +1,25 @@
+{
+  "name": "action-deploy-to-import-map-deployer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "ncc build index.js --license LICENSE",
+    "format": "prettier --write .",
+    "check-format": "prettier --check .",
+    "prepare": "husky"
+  },
+  "keywords": [],
+  "author": "Joel Denning",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.11.1"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.2",
+    "husky": "^9.1.6",
+    "prettier": "^3.3.3",
+    "pretty-quick": "^4.0.0"
+  }
+}

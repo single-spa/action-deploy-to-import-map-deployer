@@ -1,0 +1,33 @@
+name: "Deploy to import-map-deployer"
+description: "Deploy a microfrontend or import map via import-map-deployer"
+inputs:
+  host:
+    description: "The origin of the import-map-deployer server. Example https://deployer.example.com"
+    required: true
+  environment-name:
+    description: "The import-map-deployer environment to deploy to. If not provided, the default environment will be used."
+    required: false
+  service-name:
+    description: "The name of the service (microfrontend). This service name appears in the imports section of the import map"
+    required: false
+  service-url:
+    description: "The url of the service (microfrontend). This appear as the value in the imports section of the import map"
+    required: false
+  service-integrity:
+    description: "The integrity of the file of the service-url, added to the integrity section of the import map. This is for security reasons"
+    required: false
+  service-package-dir-level:
+    description: 'An integer that determines the "packages via trailing slashes" entry in the import map. See https://github.com/single-spa/import-map-deployer?tab=readme-ov-file#patch-servicesenvstagepackagedirlevel1'
+    required: false
+  import-map-path:
+    description: "The file system path of an import map to be patched"
+    required: false
+  username:
+    description: "The username used in HTTP basic authentication with import-map-deployer"
+    required: false
+  password:
+    description: "The password used in HTTP basic authentication with import-map-deployer"
+    required: false
+runs:
+  using: "node22"
+  main: "index.js"
