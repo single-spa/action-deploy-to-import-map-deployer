@@ -29,5 +29,5 @@ inputs:
     description: "The password used in HTTP basic authentication with import-map-deployer"
     required: false
 runs:
-  using: "node22"
+  using: "node20"
   main: "index.js"
