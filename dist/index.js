@@ -25610,6 +25610,13 @@ module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("fs");
 
 /***/ }),
 
+/***/ 1943:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("fs/promises");
+
+/***/ }),
+
 /***/ 8611:
 /***/ ((module) => {
 
@@ -27375,6 +27382,8 @@ module.exports = parseParams
 
 __nccwpck_require__.a(__webpack_module__, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(4708);
+/* harmony import */ var fs_promises__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(1943);
+
 
 
 const serviceName = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("service-name");
@@ -27412,6 +27421,11 @@ if (serviceName) {
     Authorization: `Basic ${btoa(credentials)}`,
   };
 
+  console.log(
+    `Calling import-map-deployer to update service. Request body:`,
+    requestBody,
+  );
+
   const r = await fetch(
     `${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("host")}/services?env=${encodeURIComponent((0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("environment-name"))}${packageDirQuery}`,
     {
@@ -27423,7 +27437,7 @@ if (serviceName) {
 
   if (r.ok) {
     console.log(
-      `Successfully patched service '${serviceName}'. Response body:`,
+      `Successfully patched service '${serviceName}' to url '${serviceUrl}'. Response body:`,
       await r.json(),
     );
   } else {
@@ -27435,6 +27449,14 @@ if (serviceName) {
 }
 
 if (importMapPath) {
+  let importMap;
+  try {
+    importMap = await fs_promises__WEBPACK_IMPORTED_MODULE_1__.readFile(importMapPath, "utf-8");
+  } catch (err) {
+    console.error(err);
+    (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed)(`Could not read import map at file path '${importMapPath}'`);
+  }
+
   const r = await fetch(
     `${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("host")}/import-map.json?env${encodeURIComponent((0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("environment-name"))}`,
     {

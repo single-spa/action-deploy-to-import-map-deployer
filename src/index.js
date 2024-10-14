@@ -1,4 +1,5 @@
 import { setFailed, getInput } from "@actions/core";
+import fs from "fs/promises";
 
 const serviceName = getInput("service-name");
 const serviceUrl = getInput("service-url");
@@ -35,6 +36,11 @@ if (serviceName) {
     Authorization: `Basic ${btoa(credentials)}`,
   };
 
+  console.log(
+    `Calling import-map-deployer to update service. Request body:`,
+    requestBody,
+  );
+
   const r = await fetch(
     `${getInput("host")}/services?env=${encodeURIComponent(getInput("environment-name"))}${packageDirQuery}`,
     {
@@ -46,7 +52,7 @@ if (serviceName) {
 
   if (r.ok) {
     console.log(
-      `Successfully patched service '${serviceName}'. Response body:`,
+      `Successfully patched service '${serviceName}' to url '${serviceUrl}'. Response body:`,
       await r.json(),
     );
   } else {
@@ -58,6 +64,14 @@ if (serviceName) {
 }
 
 if (importMapPath) {
+  let importMap;
+  try {
+    importMap = await fs.readFile(importMapPath, "utf-8");
+  } catch (err) {
+    console.error(err);
+    setFailed(`Could not read import map at file path '${importMapPath}'`);
+  }
+
   const r = await fetch(
     `${getInput("host")}/import-map.json?env${encodeURIComponent(getInput("environment-name"))}`,
     {
