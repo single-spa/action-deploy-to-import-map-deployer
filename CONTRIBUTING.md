@@ -14,5 +14,6 @@ To test, you have to push to a branch and then use it from a different repo:
 Github actions are used via git tags. For non-breaking changes, use the following workflow:
 
 ```sh
-git tag -f v1 commitHash
+git tag -f v1 $(git rev-parse HEAD)
+git push -f --tags
 ```
