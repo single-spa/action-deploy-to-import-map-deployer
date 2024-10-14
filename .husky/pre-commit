@@ -1,1 +1,1 @@
-pnpm exec pretty-quick --staged && pnpm build
+pnpm exec pretty-quick --staged && pnpm build && git add dist
