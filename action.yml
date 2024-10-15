@@ -16,6 +16,9 @@ inputs:
   service-integrity:
     description: "The integrity of the file of the service-url, added to the integrity section of the import map. This is for security reasons"
     required: false
+  service-integrity-file-path:
+    description: "The file path of the file of the service-url, which will be checksum'ed and added to the integrity section of the import map. This is for security reasons"
+    required: false
   service-package-dir-level:
     description: 'An integer that determines the "packages via trailing slashes" entry in the import map. See https://github.com/single-spa/import-map-deployer?tab=readme-ov-file#patch-servicesenvstagepackagedirlevel1'
     required: false

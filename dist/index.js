@@ -25610,13 +25610,6 @@ module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("fs");
 
 /***/ }),
 
-/***/ 1943:
-/***/ ((module) => {
-
-module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("fs/promises");
-
-/***/ }),
-
 /***/ 8611:
 /***/ ((module) => {
 
@@ -25645,10 +25638,24 @@ module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("net");
 
 /***/ }),
 
+/***/ 7598:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:crypto");
+
+/***/ }),
+
 /***/ 8474:
 /***/ ((module) => {
 
 module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:events");
+
+/***/ }),
+
+/***/ 1455:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:fs/promises");
 
 /***/ }),
 
@@ -27382,7 +27389,9 @@ module.exports = parseParams
 
 __nccwpck_require__.a(__webpack_module__, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(4708);
-/* harmony import */ var fs_promises__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(1943);
+/* harmony import */ var node_fs_promises__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(1455);
+/* harmony import */ var node_crypto__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(7598);
+
 
 
 
@@ -27413,6 +27422,14 @@ if (serviceName) {
 
   if ((0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("service-integrity")) {
     requestBody.integrity = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("service-integrity");
+  } else if ((0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("service-integrity-file-path")) {
+    const fileContents = await node_fs_promises__WEBPACK_IMPORTED_MODULE_1__.readFile(
+      (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("service-integrity-file-path"),
+      "utf-8",
+    );
+    requestBody.integrity = (0,node_crypto__WEBPACK_IMPORTED_MODULE_2__.createHash)("sha256")
+      .update(fileContents)
+      .digest("base64");
   }
 
   const credentials = `${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("username")}:${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("password")}`;
@@ -27451,7 +27468,7 @@ if (serviceName) {
 if (importMapPath) {
   let importMap;
   try {
-    importMap = await fs_promises__WEBPACK_IMPORTED_MODULE_1__.readFile(importMapPath, "utf-8");
+    importMap = await node_fs_promises__WEBPACK_IMPORTED_MODULE_1__.readFile(importMapPath, "utf-8");
   } catch (err) {
     console.error(err);
     (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed)(`Could not read import map at file path '${importMapPath}'`);

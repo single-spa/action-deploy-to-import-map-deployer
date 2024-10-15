@@ -1,5 +1,6 @@
 import { setFailed, getInput } from "@actions/core";
-import fs from "fs/promises";
+import fs from "node:fs/promises";
+import { createHash } from "node:crypto";
 
 const serviceName = getInput("service-name");
 const serviceUrl = getInput("service-url");
@@ -28,6 +29,14 @@ if (serviceName) {
 
   if (getInput("service-integrity")) {
     requestBody.integrity = getInput("service-integrity");
+  } else if (getInput("service-integrity-file-path")) {
+    const fileContents = await fs.readFile(
+      getInput("service-integrity-file-path"),
+      "utf-8",
+    );
+    requestBody.integrity = createHash("sha256")
+      .update(fileContents)
+      .digest("base64");
   }
 
   const credentials = `${getInput("username")}:${getInput("password")}`;
