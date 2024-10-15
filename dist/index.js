@@ -27427,9 +27427,8 @@ if (serviceName) {
       (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("service-integrity-file-path"),
       "utf-8",
     );
-    requestBody.integrity = (0,node_crypto__WEBPACK_IMPORTED_MODULE_2__.createHash)("sha256")
-      .update(fileContents)
-      .digest("base64");
+    requestBody.integrity =
+      "sha384-" + (0,node_crypto__WEBPACK_IMPORTED_MODULE_2__.createHash)("sha384").update(fileContents).digest("base64");
   }
 
   const credentials = `${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("username")}:${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("password")}`;

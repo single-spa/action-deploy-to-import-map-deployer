@@ -34,9 +34,8 @@ if (serviceName) {
       getInput("service-integrity-file-path"),
       "utf-8",
     );
-    requestBody.integrity = createHash("sha256")
-      .update(fileContents)
-      .digest("base64");
+    requestBody.integrity =
+      "sha384-" + createHash("sha384").update(fileContents).digest("base64");
   }
 
   const credentials = `${getInput("username")}:${getInput("password")}`;
