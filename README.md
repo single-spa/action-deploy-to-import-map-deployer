@@ -17,6 +17,7 @@ Add a `uses: single-spa/action-deploy-to-import-map-deployer@v1` step to your Gi
     host: ${{ secrets.DEPLOYER_HOST }}
     username: ${{ secrets.DEPLOYER_USERNAME }}
     password: ${{ secrets.DEPLOYER_PASSWORD }}
+    environment-name: react
     service-name: "@org-name/${{ github.event.repository.name }}"
     service-url: "https://react.microfrontends.app/${{ github.event.repository.name }}/${{ github.run_id }}/react-mf-${{ github.event.repository.name }}.js"
     service-integrity: sha256-example
@@ -32,6 +33,7 @@ Add a `uses: single-spa/action-deploy-to-import-map-deployer@v1` step to your Gi
     host: ${{ secrets.DEPLOYER_HOST }}
     username: ${{ secrets.DEPLOYER_USERNAME }}
     password: ${{ secrets.DEPLOYER_PASSWORD }}
+    environment-name: react
     import-map-path: app.importmap
 ```
 
