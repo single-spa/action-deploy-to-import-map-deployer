@@ -27411,6 +27411,12 @@ if (numServiceRequiredInputs === 1) {
   );
 }
 
+const credentials = `${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("username")}:${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("password")}`;
+const requestHeaders = {
+  "content-type": "application/json",
+  Authorization: `Basic ${btoa(credentials)}`,
+};
+
 if (serviceName) {
   const packageDirQuery = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("service-package-dir-level")
     ? `&packageDirLevel=${encodeURIComponent((0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("service-package-dir-level"))}`
@@ -27430,12 +27436,6 @@ if (serviceName) {
     requestBody.integrity =
       "sha384-" + (0,node_crypto__WEBPACK_IMPORTED_MODULE_2__.createHash)("sha384").update(fileContents).digest("base64");
   }
-
-  const credentials = `${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("username")}:${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("password")}`;
-  const requestHeaders = {
-    "content-type": "application/json",
-    Authorization: `Basic ${btoa(credentials)}`,
-  };
 
   console.log(
     `Calling import-map-deployer to update service. Request body:`,

@@ -18,6 +18,12 @@ if (numServiceRequiredInputs === 1) {
   );
 }
 
+const credentials = `${getInput("username")}:${getInput("password")}`;
+const requestHeaders = {
+  "content-type": "application/json",
+  Authorization: `Basic ${btoa(credentials)}`,
+};
+
 if (serviceName) {
   const packageDirQuery = getInput("service-package-dir-level")
     ? `&packageDirLevel=${encodeURIComponent(getInput("service-package-dir-level"))}`
@@ -37,12 +43,6 @@ if (serviceName) {
     requestBody.integrity =
       "sha384-" + createHash("sha384").update(fileContents).digest("base64");
   }
-
-  const credentials = `${getInput("username")}:${getInput("password")}`;
-  const requestHeaders = {
-    "content-type": "application/json",
-    Authorization: `Basic ${btoa(credentials)}`,
-  };
 
   console.log(
     `Calling import-map-deployer to update service. Request body:`,
