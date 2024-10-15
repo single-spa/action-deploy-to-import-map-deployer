@@ -27485,7 +27485,7 @@ if (importMapPath) {
   if (r.ok) {
     console.log(
       `Successfully patched import map. Response body:`,
-      await r.json(),
+      await r.text(),
     );
   } else {
     console.log(`response body: '${await r.text()}'`);
