@@ -20,6 +20,7 @@ Add a `uses: single-spa/action-deploy-to-import-map-deployer@v1` step to your Gi
     service-name: "@org-name/${{ github.event.repository.name }}"
     service-url: "https://react.microfrontends.app/${{ github.event.repository.name }}/${{ github.run_id }}/react-mf-${{ github.event.repository.name }}.js"
     service-integrity: sha256-example
+    service-integrity-file-path: react-mf-${{ github.event.repository.name }}.js
 ```
 
 ### Example PATCH import-map
