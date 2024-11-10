@@ -27445,14 +27445,15 @@ if (serviceName) {
     requestBody,
   );
 
-  const r = await fetch(
-    `${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("host")}/services?${environmentQuery}${packageDirQuery}`,
-    {
-      method: "PATCH",
-      body: JSON.stringify(requestBody),
-      headers: requestHeaders,
-    },
-  );
+  const urlSuffix = `/services?${environmentQuery}${packageDirQuery}`;
+
+  console.log(`Sending PATCH request`, urlSuffix, requestBody);
+
+  const r = await fetch(`${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("host")}${urlSuffix}`, {
+    method: "PATCH",
+    body: JSON.stringify(requestBody),
+    headers: requestHeaders,
+  });
 
   if (r.ok) {
     console.log(
@@ -27476,16 +27477,15 @@ if (importMapPath) {
     (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed)(`Could not read import map at file path '${importMapPath}'`);
   }
 
-  console.log(`Patching import map with request body`, importMap);
+  const urlSuffix = `/import-map.json?${environmentQuery}`;
 
-  const r = await fetch(
-    `${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("host")}/import-map.json?${environmentQuery}`,
-    {
-      method: "PATCH",
-      body: JSON.stringify(importMap),
-      headers: requestHeaders,
-    },
-  );
+  console.log(`Patching import map`, urlSuffix, importMap);
+
+  const r = await fetch(`${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("host")}${urlSuffix}`, {
+    method: "PATCH",
+    body: JSON.stringify(importMap),
+    headers: requestHeaders,
+  });
 
   console.log(`HTTP response status ${r.status} ${r.statusText}`);
 
