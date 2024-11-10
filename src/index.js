@@ -23,6 +23,9 @@ const requestHeaders = {
   "content-type": "application/json",
   Authorization: `Basic ${btoa(credentials)}`,
 };
+const environmentQuery = getInput("environment-name")
+  ? `env=${getInput("environment-name")}`
+  : "";
 
 if (serviceName) {
   const packageDirQuery = getInput("service-package-dir-level")
@@ -50,7 +53,7 @@ if (serviceName) {
   );
 
   const r = await fetch(
-    `${getInput("host")}/services?env=${encodeURIComponent(getInput("environment-name"))}${packageDirQuery}`,
+    `${getInput("host")}/services?${environmentQuery}${packageDirQuery}`,
     {
       method: "PATCH",
       body: JSON.stringify(requestBody),
@@ -83,7 +86,7 @@ if (importMapPath) {
   console.log(`Patching import map with request body`, importMap);
 
   const r = await fetch(
-    `${getInput("host")}/import-map.json?env${encodeURIComponent(getInput("environment-name"))}`,
+    `${getInput("host")}/import-map.json?${environmentQuery}`,
     {
       method: "PATCH",
       body: JSON.stringify(importMap),

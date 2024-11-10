@@ -27416,6 +27416,9 @@ const requestHeaders = {
   "content-type": "application/json",
   Authorization: `Basic ${btoa(credentials)}`,
 };
+const environmentQuery = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("environment-name")
+  ? `env=${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("environment-name")}`
+  : "";
 
 if (serviceName) {
   const packageDirQuery = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("service-package-dir-level")
@@ -27443,7 +27446,7 @@ if (serviceName) {
   );
 
   const r = await fetch(
-    `${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("host")}/services?env=${encodeURIComponent((0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("environment-name"))}${packageDirQuery}`,
+    `${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("host")}/services?${environmentQuery}${packageDirQuery}`,
     {
       method: "PATCH",
       body: JSON.stringify(requestBody),
@@ -27476,7 +27479,7 @@ if (importMapPath) {
   console.log(`Patching import map with request body`, importMap);
 
   const r = await fetch(
-    `${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("host")}/import-map.json?env${encodeURIComponent((0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("environment-name"))}`,
+    `${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("host")}/import-map.json?${environmentQuery}`,
     {
       method: "PATCH",
       body: JSON.stringify(importMap),
