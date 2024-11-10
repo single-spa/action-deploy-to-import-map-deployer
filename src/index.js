@@ -80,6 +80,8 @@ if (importMapPath) {
     setFailed(`Could not read import map at file path '${importMapPath}'`);
   }
 
+  console.log(`Patching import map with request body`, importMap);
+
   const r = await fetch(
     `${getInput("host")}/import-map.json?env${encodeURIComponent(getInput("environment-name"))}`,
     {

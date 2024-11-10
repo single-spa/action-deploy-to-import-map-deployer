@@ -27473,6 +27473,8 @@ if (importMapPath) {
     (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed)(`Could not read import map at file path '${importMapPath}'`);
   }
 
+  console.log(`Patching import map with request body`, importMap);
+
   const r = await fetch(
     `${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("host")}/import-map.json?env${encodeURIComponent((0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("environment-name"))}`,
     {
