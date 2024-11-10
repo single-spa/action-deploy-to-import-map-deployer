@@ -15,5 +15,6 @@ Github actions are used via git tags. For non-breaking changes, use the followin
 
 ```sh
 git tag -f v1 $(git rev-parse HEAD)
+git push
 git push -f --tags
 ```
