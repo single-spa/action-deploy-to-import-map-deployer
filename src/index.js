@@ -91,6 +91,8 @@ if (importMapPath) {
     },
   );
 
+  console.log(`HTTP response status ${r.status} ${r.statusText}`);
+
   if (r.ok) {
     console.log(
       `Successfully patched import map. Response body:`,
