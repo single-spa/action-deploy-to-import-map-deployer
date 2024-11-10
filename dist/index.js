@@ -27483,7 +27483,7 @@ if (importMapPath) {
 
   const r = await fetch(`${(0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("host")}${urlSuffix}`, {
     method: "PATCH",
-    body: JSON.stringify(importMap),
+    body: importMap,
     headers: requestHeaders,
   });
 

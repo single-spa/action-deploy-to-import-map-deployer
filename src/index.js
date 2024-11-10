@@ -90,7 +90,7 @@ if (importMapPath) {
 
   const r = await fetch(`${getInput("host")}${urlSuffix}`, {
     method: "PATCH",
-    body: JSON.stringify(importMap),
+    body: importMap,
     headers: requestHeaders,
   });
 
